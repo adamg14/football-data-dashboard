@@ -9,6 +9,7 @@ import numpy as np
 from PL_TEAMS import PL_TEAMS
 from PL_REFEREE import PL_REFEREE
 from faicons import icon_svg
+from prediction_model import prediction_model
 
 app_ui = ui.page_sidebar(
     ui.sidebar(
@@ -23,9 +24,9 @@ app_ui = ui.page_sidebar(
     
     ui.input_select(
         id="HomeTeam",
-                label="Home Team",
-                choices=PL_TEAMS,
-                selected="Arsenal"
+        label="Home Team",
+        choices=PL_TEAMS,
+        selected="Arsenal"
     ),
             
     ui.input_select(
@@ -51,13 +52,6 @@ app_ui = ui.page_sidebar(
         min=0,
         max=10,
         step=1
-    ),
-            
-    ui.input_select(
-        id="Referee",
-        label="Referee",
-        choices=PL_REFEREE,
-        selected="M Oliver"
     ),
             
     ui.input_numeric(
@@ -193,7 +187,8 @@ app_ui = ui.page_sidebar(
     ),
     
     ui.row(
-        ui.h2("Result")
+        ui.h2("Result"),
+        ui.output_text("model_result")
     ),
 )   
 )
@@ -248,5 +243,27 @@ def server(input, output, session):
         plt.xticks(rotation=90)
     
     
+    @render.text
+    def model_result():
+        input_data = {
+            "HomeTeam": [input.HomeTeam()],
+            "AwayTeam": [input.AwayTeam()],
+            "HTHG": [input.HomeTeamHalfGoals()],
+            "HTAG": [input.AwayTeamHalfGoals()],
+            "HS": [input.HomeShots()],
+            "AS": [input.AwayShots()],
+            "HST": [input.HomeShotsTarget()],
+            "AST": [input.AwayShotsTarget()],
+            "HF": [input.HomeFouls()],
+            "AF": [input.AwayFouls()],
+            "HC": [input.HomeCorners()],
+            "AC": [input.AwayCorners()],
+            "HY": [input.HomeYellow()],
+            "AY": [input.AwayYellow()],
+            "HR": [input.HomeRed()],
+            "AR": [input.AwayRed()],
+        }
         
+        return prediction_model(input_data)
+    
 app = App(app_ui, server)

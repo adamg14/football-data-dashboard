@@ -6,7 +6,7 @@ import joblib
 
 # import numerically encoded data frame from data_exploration module
 # FEATURES / INPUT COLUMNS
-X = numeric_data_frame.drop(["FTR", "FTAG", "FTHG"], axis=1)
+X = numeric_data_frame.drop(["FTR", "FTAG", "FTHG", "HTR"], axis=1)
 y = numeric_data_frame["FTR"]
 
 # split the data set into training and testing data

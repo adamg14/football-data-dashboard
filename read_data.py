@@ -30,6 +30,7 @@ premier_league_teams = {
     "Wolves": 19
 }
 
+
 result_map = {
     "D": 0,
     "H": -1,
