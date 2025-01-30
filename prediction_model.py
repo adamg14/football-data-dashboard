@@ -27,32 +27,32 @@ premier_league_teams = {
 
 
 def prediction_model(input_data):
-    home_team_name = input_data["HomeTeam"][0]
-    home_team_index = premier_league_teams[home_team_name]
-    
-    away_team_name = input_data["AwayTeam"][0]
-    away_team_index = premier_league_teams[away_team_name]
-    
+    # Store original names for the final messages
+    home_team_str = input_data["HomeTeam"][0]
+    away_team_str = input_data["AwayTeam"][0]
+
+    # Convert names to numeric codes
+    home_team_index = premier_league_teams[home_team_str]
+    away_team_index = premier_league_teams[away_team_str]
     input_data["HomeTeam"][0] = home_team_index
     input_data["AwayTeam"][0] = away_team_index
-    
+
     input_data_frame = pd.DataFrame(input_data)
-    
+
     model = joblib.load("./models/trained_classification_model.joblib")
-    
+
     try:
         prediction = model.predict(input_data_frame)
         prediction_probability = model.predict_proba(input_data_frame)
-        
+        confidence = max(prediction_probability[0])
+
         if prediction == 1:
-            return f"Prediction: { input_data.get("HomeTeam") }. Prediction confidence: { max(prediction_probability[0]):.2f }"
+            return f"Prediction: {home_team_str}. Prediction confidence: {confidence:.2f}"
         elif prediction == -1:
-            return f"Prediction: { input_data.get(1)[0] }. Prediction confidence: { max(prediction_probability[0]):.2f }"
+            return f"Prediction: {away_team_str}. Prediction confidence: {confidence:.2f}"
         else:
-            return f"Prediction: Draw. Prediction confidence: {max(prediction_probability[0]):.2f}"
-            
+            return f"Prediction: Draw. Prediction confidence: {confidence:.2f}"
+    
     except Exception as e:
-        return "Error during prediction: {e}"
-        
-    
-    
+        # IMPORTANT: make it an f-string so we can see the real error
+        return f"Error during prediction: {e}"
