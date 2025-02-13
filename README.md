@@ -3,6 +3,7 @@
 This project provides a data visualisation dashboard based on the 2021/22 Premier League match data. The dashboard offers insighrs into team performance, and predicitive analytics.
 
 ![Full Dashboard](full-dashboard.png)
+The above is the full Shiny app dashboard running on the localhost.
 
 ## Installation
 
@@ -40,3 +41,16 @@ This will start the running of the dashboard, and you can access it via your web
 - [read_data.py](read_data.py) = Handle data loading and preprocessing tasks, ensure that data is in the correct format analysis.
 - [requirements.txt](requirement.txt) = Lists all Python dependencies required to run the project.
 - models/ = A directory to store trained machine learning models, so retraining is not required.
+
+## Dashboard Breakdown
+The sidebar of the dashboard allows the user to both filter the visualisations and raw data by team and input match statistic variables to feed into the match predictor machine learning model.
+![Sidebar dashboard](sidebar-filter.png)
+
+A correlation matrix visualising the strength of correlation between the match statisic variables, shows obviously highly correlated variables such as home team half time goals and home team full time goals.
+
+A histogram with a line of best fit showing the distribution of the frequency of goals scored by home vs away teams.
+Both these visualisations can be filtered by team.
+![Data Visualisations](data-visualisations.png)
+
+The result of the output of the machine learning model trained on the data visualised in the dashboard, the user is able to customise the match statistic variables. The confidence of the prediction of the match winner is displayed alongside the match winner.
+![Machine Learning Model Output](ml_model.png)
