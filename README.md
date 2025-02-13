@@ -53,4 +53,4 @@ Both these visualisations can be filtered by team.
 ![Data Visualisations](data-visualisations.png)
 
 The result of the output of the machine learning model trained on the data visualised in the dashboard, the user is able to customise the match statistic variables. The confidence of the prediction of the match winner is displayed alongside the match winner.
-![Machine Learning Model Output](ml_model.png)
+![Machine Learning Model Output](ml-model-result.png)
