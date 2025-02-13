@@ -2,6 +2,8 @@
 
 This project provides a data visualisation dashboard based on the 2021/22 Premier League match data. The dashboard offers insighrs into team performance, and predicitive analytics.
 
+![Full Dashboard](full-dashboard.png)
+
 ## Installation
 
 1. Clone the repository
